@@ -1,0 +1,27 @@
+The attached TSV file summarizes in total 2698 annotations for 980 targets in context. 
+This data thus averages 2.75 independently judged annotations for each target. 
+The data contains the following TAB-separated fields:
+
+    IDENTIFIER    JUDGMENTS    ASPECTS    LEFT-CONTEXT    TARGET    RIGHT-CONTEXT
+
+Where IDENTIFIER is an identifier for the case, 
+JUDGMENTS is a comma-separated list of your sentiment judgments (e.g. "positive,positive,neutral"), 
+ASPECTS is a comma-separated list of aspects you annotated (e.g. "laatu,status,status"), 
+LEFT-CONTEXT is the text appearing before the target of the annotation, 
+TARGET is the text of the target, and 
+RIGHT-CONTEXT is the text appearing after the target.
+
+
+import csv
+irises = []
+with open("../data/iris.data") as inputfile:
+    chreader = csv.DictReader(inputfile)
+    for line in chreader:
+        irises.append(line)
+        
+print(irises[0])
+with open("../data/iris.tsv", "w") as outputfile:
+    writer = csv.DictWriter(outputfile, delimiter="\t", fieldnames=["sepal.length","sepal.width","petal.length","petal.width","class"])
+    writer.writeheader()
+    for iris in irises:
+        writer.writerow(iris)
